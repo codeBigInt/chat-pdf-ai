@@ -1,6 +1,6 @@
 {
-  "id": "6c62db87-b757-4a43-9c77-81c285ff9c8f",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "9cbf5da6-d101-406c-b075-a88b231b003e",
+  "prevId": "f36e999a-49a5-48d2-8ddf-bb2aa48f0924",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -140,7 +140,8 @@
           "name": "subscribed",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": false
         },
         "plan": {
           "name": "plan",
@@ -149,6 +150,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'free'"
+        },
+        "limit": {
+          "name": "limit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 3
         }
       },
       "indexes": {},

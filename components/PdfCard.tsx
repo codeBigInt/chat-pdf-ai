@@ -1,7 +1,15 @@
-import Image from 'next/image'
+"use client"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { FileText, Calendar } from 'lucide-react'
+import { FileText, Calendar, LoaderPinwheel } from 'lucide-react'
 import Link from 'next/link'
+import { useRef } from "react"
+import { Document, Page, pdfjs } from 'react-pdf'
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import 'react-pdf/dist/esm/Page/TextLayer.css';
+
+
+// Coping pdf.worker.min.mjs to public folder
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface PDFCardProps {
   name: string
@@ -10,18 +18,22 @@ interface PDFCardProps {
   creationDate: Date
 }
 
-export function PDFCard({ name, creationDate, id }: PDFCardProps) {
+export function PDFCard({ name, creationDate, id, imageUrl }: PDFCardProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
   return (
     <Link href={`/chats/${id}`}>
       <Card className="w-full max-w-sm overflow-hidden transition-all duration-300 hover:shadow-lg">
         <CardContent className="p-0">
-          <div className="relative aspect-[3/4] w-full bg-gray-300 overflow-hidden">
-            <Image
-              src={"/images/pdf-thumbnail.jpg"}
-              alt={`${name} thumbnail`}
-              fill
-              className="object-cover transition-all duration-300 hover:scale-105"
-            />
+          <div ref={containerRef} className="relative aspect-[3/4] flex flex-col items-center bg-gray-300 overflow-hidden">
+            <Document
+              file={imageUrl}
+              loading={() => (
+                <LoaderPinwheel size={25} className="text-pink-500 animate-bounce" />
+              )}
+              className="flex justify-center items-center"
+            >
+              <Page pageNumber={1} width={containerRef.current?.clientWidth} height={containerRef.current?.clientHeight} />
+            </Document>
           </div>
         </CardContent>
         <CardFooter className="flex flex-col items-start gap-2 p-4">

@@ -4,8 +4,8 @@ import React from 'react'
 
 const SignInPage = () => {
     return (
-        <div className='flex justify-center items-center min-h-[100vh]'>
-            <SignIn />
+        <div className='flex justify-center bg-black items-center min-h-[100vh]'>
+            <SignIn signUpFallbackRedirectUrl={"/dashboard"} />
         </div>
     )
 }

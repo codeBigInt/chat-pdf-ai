@@ -1,3 +1,5 @@
+CREATE TYPE "public"."plan_type_enum" AS ENUM('free', 'premium', 'pro');--> statement-breakpoint
+CREATE TYPE "public"."user_system_enum" AS ENUM('user', 'system');--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "chats" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"pdf_name" text NOT NULL,
@@ -13,6 +15,14 @@ CREATE TABLE IF NOT EXISTS "messages" (
 	"chat_id" integer NOT NULL,
 	"role" "user_system_enum" NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "subscriptions" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"user_id" varchar(256) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"subscribed" boolean NOT NULL,
+	"plan" "plan_type_enum" DEFAULT 'free' NOT NULL
 );
 --> statement-breakpoint
 DO $$ BEGIN

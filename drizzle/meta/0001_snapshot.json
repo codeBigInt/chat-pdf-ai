@@ -1,6 +1,6 @@
 {
-  "id": "5961c6a7-a9c1-4ddb-baed-6493993d9215",
-  "prevId": "40a42fab-36e0-424c-8360-021497fc1029",
+  "id": "f36e999a-49a5-48d2-8ddf-bb2aa48f0924",
+  "prevId": "6c62db87-b757-4a43-9c77-81c285ff9c8f",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -113,12 +113,12 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.subscription": {
-      "name": "subscription",
+    "public.subscriptions": {
+      "name": "subscriptions",
       "schema": "",
       "columns": {
-        "subscription": {
-          "name": "subscription",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
@@ -129,8 +129,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "create_at": {
-          "name": "create_at",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -140,7 +140,16 @@
           "name": "subscribed",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": false
+        },
+        "plan": {
+          "name": "plan",
+          "type": "plan_type_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'free'"
         }
       },
       "indexes": {},
@@ -152,7 +161,25 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.plan_type_enum": {
+      "name": "plan_type_enum",
+      "schema": "public",
+      "values": [
+        "free",
+        "premium",
+        "pro"
+      ]
+    },
+    "public.user_system_enum": {
+      "name": "user_system_enum",
+      "schema": "public",
+      "values": [
+        "user",
+        "system"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},

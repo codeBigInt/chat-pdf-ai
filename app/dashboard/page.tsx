@@ -18,7 +18,7 @@ export default async function DashboardPage() {
 
     return (
         <DashboardShell>
-            <Suspense fallback={<LoadingComponent message="Just a momment" subtext="Fetching chats" />}>
+            <Suspense fallback={<LoadingComponent message="Just a momment" subtext="Retrieving assets" />}>
                 <div>
 
                     {
@@ -39,9 +39,9 @@ export default async function DashboardPage() {
                         ) : (
                             <div className="flex w-full justify-center items-center min-h-screen h-full">
                                 <div className='w-full min-h-full flex flex-col-reverse gap-2 justify-center items-center'>
-                                    <span className='text-gray-500 text-[11px]'>Start chatting with your pdf</span>
-                                    <span className='text-gray-500 text-[14px]'>You have no messages</span>
-                                    <PackageOpen size={40} className='text-gray-400' />
+                                    <span className='text-gray-500 text-[11px]'>Upload and Start chatting with your pdf</span>
+                                    <span className='text-gray-500 text-[14px]'>You have no uploaded documents</span>
+                                    <PackageOpen size={80} className='text-gray-400' />
                                 </div>
                             </div>
                         )

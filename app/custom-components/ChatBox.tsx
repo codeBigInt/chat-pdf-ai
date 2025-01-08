@@ -1,5 +1,5 @@
 "use client"
-import { MenuIcon, Send, X } from 'lucide-react'
+import { MenuIcon, MessageSquare, Send, X } from 'lucide-react'
 import React from 'react'
 import { useChat } from "ai/react"
 import MessageList from './MessageList'
@@ -18,6 +18,7 @@ import { fetchChats } from '../action'
 import { useSendMessage } from '../hookes/hookes'
 import toast from 'react-hot-toast'
 import LoadingComponent from './LoadingComponent'
+import { Button } from '@/components/ui/button'
 
 export interface ParamType {
     message: string,
@@ -88,12 +89,18 @@ const ChatBox = ({ chatId, chats }: { chatId: number, chats: DrizzleChats[] }) =
 
     return (
         <div className='flex flex-col relative min-h-full overflow-y-hidden max-h-full w-full' id='message_container'>
-            <div className='flex md:hidden justify-between items-center sticky shadow-lg z-30 border-b-[1px] bg-white p-3'>
-                <div className="flex gap-4 items-center">
-                    <UserButton />
+            <div className='flex md:hidden justify-between items-center sticky shadow-lg z-30 border-b-[0.5px] border-gray-600 bg-black p-3'>
+                <div className='flex items-center gap-2'>
+                    <MessageSquare className="h-6 w-6 text-primary" />
+                    <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500">PDFChat</span>
                 </div>
                 <Sheet>
-                    <SheetTrigger><span className='bg-blue-600 rounded-lg text-white p-3 flex justify-center items-center'><MenuIcon size={16} /></span></SheetTrigger>
+                    <SheetTrigger className='flex gap-2 flex-row-reverse items-center'>
+                        <span className='bg-transparent border border-dashed border-gray-400 rounded-lg text-white p-2 flex justify-center items-center'><MenuIcon size={16} /></span>
+                        <div className="flex gap-4 items-center">
+                            <UserButton />
+                        </div>
+                    </SheetTrigger>
                     <SheetContent className='bg-gray-800 text-white border-none'>
                         <div className='hidden'>
                             <SheetTitle>Menu</SheetTitle>
@@ -106,16 +113,18 @@ const ChatBox = ({ chatId, chats }: { chatId: number, chats: DrizzleChats[] }) =
             <div className='flex flex-1 relative h-[85%] max-h-[85%] overflow-y-auto'>
                 <MessageList messages={messages} isSubmitting={isSubmitting} />
             </div>
-            <div className='w-full sticky left-0 bottom-0 border-t-[1px] p-3 bg-white md:py-3'>
-                <form onSubmit={handleSubmit} className='w-full flex items-center gap-3'>
+            <div className='w-full sticky left-0 bottom-0 border-t-[1px] p-3 md:py-3'>
+                <form onSubmit={handleSubmit} className='w-full bg-transparent px-1 border rounded-lg flex items-center gap-3'>
                     <input
                         placeholder='Ask me any question..'
                         type='text'
-                        className='p-3 text-[14px] border rounded-lg outline-none flex-1 flex'
+                        className='p-3 text-[14px] bg-transparent border-none text-white border rounded-lg outline-none flex-1 flex'
                         value={input}
                         onChange={handleInputChange}
                     />
-                    <button disabled={isSubmitting} type='submit' className='bg-blue-600 text-white rounded-md p-3'><Send size={16} /></button>
+                    <button type='submit' disabled={isSubmitting} className='bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md p-3 hover:bg-primary/80'>
+                        <Send size={16} />
+                    </button>
                 </form>
             </div>
         </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { FileText, Home, HomeIcon, LogOut } from 'lucide-react'
+import { FileText, Home, HomeIcon, LogOut, MessageSquare, MessageSquareIcon } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -14,22 +14,29 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import Link from 'next/link'
-import { UserButton, useUser } from '@clerk/nextjs'
+import { useAuth, UserButton, useUser } from '@clerk/nextjs'
+import Logo from '@/app/custom-components/Logo'
+import { useGetUserSubscription } from '@/app/hookes/hookes'
 
 export function AppSidebar() {
   const { user } = useUser()
+  const { userId } = useAuth()
+  const { data: subscription } = useGetUserSubscription(userId as string)
+
   return (
     <Sidebar>
-      <SidebarHeader className='bg-gray-800 text-white'>
-        <h2 className="text-xl font-bold p-4">PDF Viewer</h2>
+      <SidebarHeader className='bg-black text-white'>
+        <div className='flex items-center gap-2 p-4'>
+          <Logo />
+        </div>
       </SidebarHeader>
-      <SidebarContent className='bg-gray-800 text-white'>
+      <SidebarContent className='bg-black text-white'>
         <SidebarGroup className='flex-1'>
-          <SidebarGroupLabel className='text-white'>Main Menu</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
+          <SidebarGroupLabel className='uppercase hidden text-gray-500'>Main Menu</SidebarGroupLabel>
+          <SidebarGroupContent className='flex flex-col pt-6 gap-4'>
+            <SidebarMenu className='flex flex-col gap-2'>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild className='bg-gradient-to-r h-12 from-primary via-purple-500 to-pink-500'>
                   <Link href="/dashboard/documents">
                     <FileText className="w-4 h-4 mr-2" />
                     <span>Documents</span>
@@ -37,9 +44,9 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild className='h-12'>
                   <a href="/dashboard">
-                    <Home className="w-4 h-4 mr-2" />
+                    <MessageSquareIcon className="w-4 h-4 mr-2" />
                     <span>Chats</span>
                   </a>
                 </SidebarMenuButton>
@@ -49,10 +56,10 @@ export function AppSidebar() {
         </SidebarGroup>
         <SidebarGroup>
           <div className='flex flex-col gap-4'>
-            <Link href={"/subscription"} className="md:w-max w-[80%]">
-              <button className="px-4 py-3 w-full justify-center bg-transparent border-dashed border rounded-lg text-white flex items-center gap-2">
+            <span></span>
+            <Link href={"/pricing"} className="px-4 flex hover:bg-white/20 flex-col gap-2 py-3 md:w-max w-[80%] justify-center bg-transparent border-dashed border border-gray-500 rounded-lg text-white items-center">
+                <span className='text-[10px] text-gray-500 capitalize'>{subscription?.plan} Plan - {subscription?.limit} credits</span>
                 <span>Manage subscription</span>
-              </button>
             </Link>
             <div className="flex gap-4 items-center">
               <UserButton />

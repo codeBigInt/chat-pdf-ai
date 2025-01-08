@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { fetchUserPdf, sendMessages, sendUpload } from "../action"
+import { addSubscription, fetchUserPdf, getSubscription, sendMessages, sendUpload } from "../action"
 import { SendUploadType } from "@/lib/type"
 
 
@@ -23,5 +23,18 @@ export const useFetchPdf = (userId: string) => {
     return useQuery({
         queryKey: ["user"],
         queryFn: async () => await fetchUserPdf(userId)
+    })
+}
+
+export const useAddSubscription = () => {
+    return useMutation({
+        mutationKey: ["addSubscription"],
+        mutationFn: async (data: { userId: string, tx_ref?: string, planType?: string }) => addSubscription(data)
+})}
+
+export const useGetUserSubscription = (userId: string) => {
+    return useQuery({
+        queryKey: ["getSubscription"],
+        queryFn: () => getSubscription(userId)
     })
 }

@@ -3,13 +3,16 @@ import { uploadFile } from '@/lib/s3'
 import { CloudUpload, Loader } from 'lucide-react'
 import React, { useState } from 'react'
 import { useDropzone } from "react-dropzone"
-import { useSendUplaod } from "../hookes/hookes"
+import { useGetUserSubscription, useSendUplaod } from "../hookes/hookes"
 import { SendUploadType } from '@/lib/type'
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
-const FiledUploader = ({ className }: { className: string }) => {
+import { useAuth } from '@clerk/nextjs'
+const FiledUploader = ({ className }: { className?: string }) => {
     const router = useRouter()
     const { mutate: sendUpload, isPending } = useSendUplaod()
+    const { userId } = useAuth()
+    const { data: subscription, isLoading: isFecthingSubscriptionStaus } = useGetUserSubscription(userId as string);
     const [uploading, setUploading] = useState(false)
     const { getInputProps, getRootProps } = useDropzone({
         accept: { "application/pdf": [".pdf"], "application/docx": [".docx"] },
@@ -17,10 +20,21 @@ const FiledUploader = ({ className }: { className: string }) => {
         onDrop: async (acceptedFiles) => {
             const file = acceptedFiles[0]
             console.log("file", file)
-            const validFileSize = file.size < (10 * 1024 * 1024)
-            if (!validFileSize) {
-                toast.error("File size exceeds 10MB")
-                return
+            if (!subscription) {
+                if (file.size > (5 * 1024 * 1024)) {
+                    toast.error("Free plan users can only upload files up to 5MB");
+                    return;
+                }
+            } else if (subscription.plan === "pro") {
+                if (file.size > (15 * 1024 * 1024)) {
+                    toast.error("Pro plan users can only upload files up to 15MB");
+                    return;
+                }
+            } else if (subscription.plan === "premium") {
+                if (file.size > (25 * 1024 * 1024)) {
+                    toast.error("Premium plan users can only upload files up to 25MB");
+                    return;
+                }
             }
             setUploading(true)
             try {

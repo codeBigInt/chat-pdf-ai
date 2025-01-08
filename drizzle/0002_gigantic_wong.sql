@@ -1,0 +1,1 @@
+ALTER TABLE "subscriptions" ADD COLUMN "limit" integer DEFAULT 3 NOT NULL;

@@ -1,5 +1,5 @@
 "use client"
-import { FileScan } from 'lucide-react'
+import { Eye, FileScan } from 'lucide-react'
 import React from 'react'
 import {
     Dialog,
@@ -19,13 +19,13 @@ const MobilePdfViewer = ({ pdfUrl }: Props) => {
         <div className='lg:hidden'>
             <Dialog>
                 <DialogTrigger>
-                    <span className="absolute z-50 rounded-lg backdrop-blur-lg bg-opacity-55 bg-gray-300 flex flex-col-reverse items-center p-2 justify-center bottom-24 right-4">
-                        <span className="text-xs">View pdf</span>
-                        <FileScan size={30} />
+                    <span className="absolute z-50 rounded-lg backdrop-blur-xl bg-opacity-20 bg-white flex flex-col-reverse items-center p-2 justify-center bottom-24 right-4">
+                        <span className="text-xs text-pink-500">Preview</span>
+                        <Eye size={30} className='text-pink-500' />
                     </span>
                 </DialogTrigger>
 
-                <DialogContent className='min-h-[85vh] w-[90%] rounded-md px-2 lg:hidden'>
+                <DialogContent className='min-h-[85vh] max-h-[85vh] w-[90%] overflow-auto rounded-md px-2 lg:hidden'>
                     <span className='hidden'><DialogTitle>Are you absolutely sure?</DialogTitle></span>
                     <ChatPdfViewer pdfUrl={pdfUrl} />
                 </DialogContent>

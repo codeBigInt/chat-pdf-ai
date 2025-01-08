@@ -1,8 +1,9 @@
 import { db } from "@/lib/db";
-import { chats } from "@/lib/db/schema";
+import { chats, DrizzleSubscriptions, subscriptions } from "@/lib/db/schema";
 import { loadS3ToPinecone } from "@/lib/pincone";
 import { getAWSURL } from "@/lib/s3";
 import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 //Create chat api endpoint
@@ -14,6 +15,11 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
         const { file_key, file_name } = body
+        const userSubscription: DrizzleSubscriptions[]  =  await db.select().from(subscriptions).where(eq(subscriptions.userId, userId));
+        const _chats = await db.select().from(chats).where(eq(chats.userId, userId));
+        if(userSubscription[0].limit < _chats.length){
+            return NextResponse.json({ error: `Max. file uplaod reached for ${userSubscription[0].plan} plan` }, { status: 401 })
+        }
         // Uing file key to load the pdf in to the currnet working directory
         await loadS3ToPinecone(file_key)
         // Upload user file upload to neon db using drizzle orm
@@ -23,6 +29,8 @@ export async function POST(request: Request) {
             fileKey: file_key,
             userId
         }).returning({chartId: chats.id})
+
+        await db.update(subscriptions).set({limit: userSubscription[0].limit - 1}).where(eq(subscriptions.userId, userId))
         // Returns all chat ids pf all inserted documents that have been inserted successfully
 
         // Return a respnse with chat id tha we can use to fetch the document in the chat room
