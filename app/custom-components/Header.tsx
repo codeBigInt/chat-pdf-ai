@@ -27,7 +27,7 @@ export default function Header() {
           ) : (
             <div className="flex items-center space-x-4">
               <Link href={"/auth/sign-in"}>
-                <Button variant="ghost" className="text-gray-400 hover:text-white">Log in</Button>
+                <Button variant="ghost" className="text-gray-400 hover:text-black">Log in</Button>
               </Link>
               <Link href={"/auth/sign-up"}>
                 <Button>Sign up</Button>

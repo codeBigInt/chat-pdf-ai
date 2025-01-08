@@ -2,7 +2,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { FileText, Calendar, LoaderPinwheel } from 'lucide-react'
 import Link from 'next/link'
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
@@ -30,9 +30,9 @@ export function PDFCard({ name, creationDate, id, imageUrl }: PDFCardProps) {
               loading={() => (
                 <LoaderPinwheel size={25} className="text-pink-500 animate-bounce" />
               )}
-              className="flex justify-center items-center"
+              className="flex justify-center items-center w-full h-full"
             >
-              <Page pageNumber={1} width={containerRef.current?.clientWidth} height={containerRef.current?.clientHeight} />
+              <Page pageNumber={1} _className="w-full max-sm:h-full" width={containerRef.current?.clientWidth} />
             </Document>
           </div>
         </CardContent>
@@ -54,6 +54,5 @@ export function PDFCard({ name, creationDate, id, imageUrl }: PDFCardProps) {
         </CardFooter>
       </Card>
     </Link>
-  )
+  );
 }
-
