@@ -5,6 +5,8 @@ import { integer, pgEnum, pgTable, serial, text, timestamp, varchar, boolean } f
 export const userSystemEnum = pgEnum("user_system_enum", ["user", "system"]);
 export const planTypeEnum = pgEnum("plan_type_enum", ["free", "premium", "pro"]);
 
+export type RoleType = typeof userSystemEnum.enumValues[number];
+
 export const chats = pgTable("chats", {
     id: serial("id").primaryKey(),
     pdfName: text("pdf_name").notNull(),

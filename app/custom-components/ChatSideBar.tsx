@@ -3,12 +3,10 @@
 import { DrizzleChats } from '@/lib/db/schema'
 import { cn } from '@/lib/utils'
 import { UserButton, useUser } from '@clerk/nextjs'
-import { HomeIcon, LogOut, MessageCircle, MessageSquareIcon, Plus, PlusCircle, X } from 'lucide-react'
+import { HomeIcon, LogOut, MessageSquareIcon, Plus} from 'lucide-react'
 import Link from 'next/link'
 import React, { useContext } from 'react'
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import FiledUploader from './FiledUploader'
 import { ToggleContext, ToggleContextProps } from '../context/ToggleCotext'
 
 type Props = {

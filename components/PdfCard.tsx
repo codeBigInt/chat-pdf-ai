@@ -2,7 +2,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { FileText, Calendar, LoaderPinwheel } from 'lucide-react'
 import Link from 'next/link'
-import { useRef, useState, useEffect } from "react"
+import { useRef } from "react"
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';

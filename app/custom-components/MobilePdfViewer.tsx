@@ -1,5 +1,5 @@
 "use client"
-import { Eye, FileScan } from 'lucide-react'
+import { Eye } from 'lucide-react'
 import React from 'react'
 import {
     Dialog,

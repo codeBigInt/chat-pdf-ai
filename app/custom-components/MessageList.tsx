@@ -2,9 +2,8 @@
 import React from 'react'
 import { Message } from "ai/react"
 import { cn } from '@/lib/utils'
-import { Asterisk, BotMessageSquare, FileText, MenuIcon, PackageOpen, Search, Zap } from 'lucide-react'
+import { Asterisk, BotMessageSquare, FileText, MenuIcon, Search, Zap } from 'lucide-react'
 import { useUser } from '@clerk/nextjs'
-import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 type Props = {
     messages: Message[],

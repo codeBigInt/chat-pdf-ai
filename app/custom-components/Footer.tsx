@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { MessageSquare } from 'lucide-react'
 import Logo from './Logo'
 
 export default function Footer() {

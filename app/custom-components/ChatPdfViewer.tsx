@@ -1,7 +1,6 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, LoaderPinwheel } from 'lucide-react';
-import dynamic from 'next/dynamic';
 import React, { useEffect, useRef, useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf';
 
@@ -42,9 +41,6 @@ const ChatPdfViewer = ({ pdfUrl }: Props) => {
         if (!numOfPages || !containerRef.current) return;
 
         const container = containerRef.current;
-        const containerTop = container.scrollTop;
-        const containerHeight = container.clientHeight;
-        const containerBottom = containerTop + containerHeight;
 
         let mostVisiblePage = 1;
         let maxVisibleHeight = 0;
@@ -55,7 +51,7 @@ const ChatPdfViewer = ({ pdfUrl }: Props) => {
 
             const rect = page.getBoundingClientRect();
             const containerRect = container.getBoundingClientRect();
-            
+
             // Calculate how much of the page is visible
             const visibleTop = Math.max(rect.top, containerRect.top);
             const visibleBottom = Math.min(rect.bottom, containerRect.bottom);
@@ -123,7 +119,7 @@ const ChatPdfViewer = ({ pdfUrl }: Props) => {
                     </div>
                 )}
             >
-                {Array.from(new Array(numOfPages), (el, index) => (
+                {Array.from(new Array(numOfPages), (index) => (
                     <div
                         ref={(ref) => {
                             if (ref) pageRefs.current[index] = ref;

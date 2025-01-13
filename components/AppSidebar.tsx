@@ -1,6 +1,6 @@
 "use client"
 
-import { FileText, Home, HomeIcon, LogOut, MessageSquare, MessageSquareIcon } from 'lucide-react'
+import { FileText, HomeIcon, LogOut, MessageSquareIcon } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,

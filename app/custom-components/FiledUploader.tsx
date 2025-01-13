@@ -1,6 +1,6 @@
 "use client"
 import { uploadFile } from '@/lib/s3'
-import { CloudUpload, icons, Loader, MessagesSquare, PaintbrushVertical, PaintBucket, Save } from 'lucide-react'
+import { CloudUpload, MessagesSquare, PaintbrushVertical, PaintBucket } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useDropzone } from "react-dropzone"
 import { useGetUserSubscription, useSendUplaod } from "../hookes/hookes"
@@ -13,7 +13,7 @@ const FiledUploader = ({ className }: { className?: string }) => {
     const { mutate: sendUpload, isPending } = useSendUplaod()
     const [index, setIndex] = useState(0)
     const { userId } = useAuth()
-    const { data: subscription, isLoading: isFecthingSubscriptionStaus } = useGetUserSubscription(userId as string);
+    const { data: subscription } = useGetUserSubscription(userId as string);
     const [uploading, setUploading] = useState(false)
     const loaderArr: { status: string, icon: React.ReactNode }[] = [
         {

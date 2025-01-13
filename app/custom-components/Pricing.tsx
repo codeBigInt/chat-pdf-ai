@@ -8,12 +8,12 @@ import toast from 'react-hot-toast'
 import { useAddSubscription, useGetUserSubscription } from '../hookes/hookes'
 import { usePathname, useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { Check, CheckCircle } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 const Pricing = () => {
   const { isSignedIn, userId } = useAuth()
   const { mutateAsync: addSubscription } = useAddSubscription();
-  const { data: subscription, isLoading: isFecthingSubscriptionStaus } = useGetUserSubscription(userId as string);
+  const { data: subscription } = useGetUserSubscription(userId as string);
   const { user } = useUser();
   const router = useRouter();
   const pathname = usePathname()

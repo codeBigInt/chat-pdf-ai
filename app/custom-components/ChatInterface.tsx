@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import ChatPdfViewer from './ChatPdfViewer';
 import ChatSideBar from './ChatSideBar';
 import ChatBox from './ChatBox';

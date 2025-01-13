@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../custom-components/Header'
 import Pricing from '../custom-components/Pricing'
-import Footer from '../custom-components/Footer'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 

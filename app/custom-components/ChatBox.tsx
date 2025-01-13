@@ -18,7 +18,6 @@ import { fetchChats } from '../action'
 import { useSendMessage } from '../hookes/hookes'
 import toast from 'react-hot-toast'
 import LoadingComponent from './LoadingComponent'
-import { Button } from '@/components/ui/button'
 
 export interface ParamType {
     message: string,
