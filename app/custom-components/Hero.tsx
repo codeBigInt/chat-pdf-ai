@@ -25,11 +25,6 @@ export default function Hero() {
                 Try for free <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href={"/"}>
-              <Button size="lg" variant="secondary" className="text-lg px-8">
-                View demo
-              </Button>
-            </Link>
           </div>
         </div>
         <div id="demo" className="relative mx-auto max-w-6xl shadow-2xl">

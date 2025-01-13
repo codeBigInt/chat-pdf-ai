@@ -6,7 +6,7 @@ import { closePaymentModal, useFlutterwave } from 'flutterwave-react-v3'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { useAddSubscription, useGetUserSubscription } from '../hookes/hookes'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Check, CheckCircle } from 'lucide-react'
 
@@ -16,6 +16,7 @@ const Pricing = () => {
   const { data: subscription, isLoading: isFecthingSubscriptionStaus } = useGetUserSubscription(userId as string);
   const { user } = useUser();
   const router = useRouter();
+  const pathname = usePathname()
 
   // Handling user payment if they are signed in
   const handleUserSubscription = (planName: string, planPrice: number, index: number) => {
@@ -102,7 +103,8 @@ const Pricing = () => {
               subscription?.plan === pricing.title.toLowerCase() ? router.push("/dashboard") : handleUserSubscription(pricing.title, pricing.price, index)
             }}
               className={cn('flex relative flex-col md:hover:scale-105 md:w-[25%] w-[85%] gap-2 py-20 shadow-xl p-6 border border-transparent rounded-md border-purple-500', {
-                "border-gray-500": pricing.title.toLowerCase() === subscription?.plan
+                "border-gray-500": pricing.title.toLowerCase() === subscription?.plan,
+                "pointer-events-none": pathname === "/"
               })}>
               <h3 className='text-lg font-medium'>{pricing.title} {index > 0 ? "(one-time)" : ""}</h3>
               <h4 className='text-2xl font-bold text-transparent hover:bg-white/20 hover bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text'>NGN{pricing.price}</h4>
