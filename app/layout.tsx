@@ -7,6 +7,7 @@ import {
 
 import "./globals.css";
 import QueryProvider from "./provider/QueryProvider";
+import ToggleContextProvider from "./context/ToggleCotext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,7 +28,9 @@ export default function RootLayout({
           <body
             className={`${poppins.className}`}
           >
-            {children}
+            <ToggleContextProvider>
+              {children}
+            </ToggleContextProvider>
             <Toaster />
           </body>
         </html>

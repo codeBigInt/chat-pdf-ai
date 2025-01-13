@@ -1,7 +1,7 @@
 "use client"
 import { uploadFile } from '@/lib/s3'
-import { CloudUpload, Loader } from 'lucide-react'
-import React, { useState } from 'react'
+import { CloudUpload, icons, Loader, MessagesSquare, PaintbrushVertical, PaintBucket, Save } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
 import { useDropzone } from "react-dropzone"
 import { useGetUserSubscription, useSendUplaod } from "../hookes/hookes"
 import { SendUploadType } from '@/lib/type'
@@ -11,9 +11,46 @@ import { useAuth } from '@clerk/nextjs'
 const FiledUploader = ({ className }: { className?: string }) => {
     const router = useRouter()
     const { mutate: sendUpload, isPending } = useSendUplaod()
+    const [index, setIndex] = useState(0)
     const { userId } = useAuth()
     const { data: subscription, isLoading: isFecthingSubscriptionStaus } = useGetUserSubscription(userId as string);
     const [uploading, setUploading] = useState(false)
+    const loaderArr: { status: string, icon: React.ReactNode }[] = [
+        {
+            status: "Spilling Tea to AI...",
+            icon: <PaintBucket size={28} color='#a855f7' />
+        },
+        {
+            status: "Saving to Assets",
+            icon: <CloudUpload size={28} color='#a855f7' />
+        },
+        {
+            status: "Creating Chat room",
+            icon: <MessagesSquare size={28} color='#a855f7' />
+        },
+        {
+            status: "Preparing Chat room",
+            icon: <PaintbrushVertical size={28} color='#a855f7' />
+        },
+        {
+            status: "Redirecting in a bit",
+            icon: <PaintbrushVertical size={28} color='#a855f7' />
+        }
+    ]
+    const DELAY = 3000;
+
+    useEffect(() => {
+        const loadInterval = setInterval(() => {
+            if (index >= loaderArr.length - 1) {
+                setIndex(0)
+            }
+
+            setIndex(prev => prev + 1)
+        }, DELAY)
+
+        return () => clearInterval(loadInterval)
+    }, [index])
+
     const { getInputProps, getRootProps } = useDropzone({
         accept: { "application/pdf": [".pdf"], "application/docx": [".docx"] },
         maxFiles: 1,
@@ -71,9 +108,10 @@ const FiledUploader = ({ className }: { className?: string }) => {
                 <input {...getInputProps()} />
                 <div className="flex flex-col gap-3 items-center w-full">
                     {
-                        isPending || uploading ? (<div className='flex flex-col gap-3 py-8 items-center'>
-                            <span className='bg-gray-300 rounded-lg p-2 justify-center items-center flex w-max'><Loader className='animate-spin' size={28} /></span>
-                            <span className='text-gray-400 capitalize'>Spilling Tea to AI...</span>
+                        isPending || uploading ? (<div className={`flex flex-col gap-3 py-8 transition animate-in delay-[${DELAY}] items-center`}>
+                            <span className='bg-gray-300 rounded-lg p-2 justify-center items-center flex w-max text-purple-500'>{loaderArr[index].icon}</span>
+                            <span className='text-gray-400 capitalize text-nowrap text-[14px]'>{loaderArr[index].status}</span>
+                            <span>{ }</span>
                         </div>) : (
                             <>
                                 <CloudUpload size={40} className='text-5xl text-gray-600' />

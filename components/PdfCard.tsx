@@ -30,9 +30,9 @@ export function PDFCard({ name, creationDate, id, imageUrl }: PDFCardProps) {
               loading={() => (
                 <LoaderPinwheel size={25} className="text-pink-500 animate-bounce" />
               )}
-              className="flex justify-center items-center w-full h-full"
+              className="flex justify-center items-center"
             >
-              <Page pageNumber={1} _className="w-full max-sm:h-full" width={containerRef.current?.clientWidth} />
+              <Page pageNumber={1} _className="w-full max-sm:h-full" width={300} />
             </Document>
           </div>
         </CardContent>
