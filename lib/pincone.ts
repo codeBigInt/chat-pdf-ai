@@ -7,6 +7,9 @@ import { getEmbeddingFromText } from "./embeddings";
 import md5 from "md5";
 import { convertToAscii } from "./utils";
 
+export const runtime = 'edge'; // specifying it should only run on the server
+
+
 export const getPineconeClient = async () => {
     const pinecone = new Pinecone({
         apiKey: process.env.NEXT_PUBLIC_PINECONE_DB_API_KEY!

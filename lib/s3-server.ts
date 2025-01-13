@@ -3,7 +3,6 @@ import fs from "fs"
 import path from "path"
 import { awsConfig } from "./s3"
 
-export const runtime = 'edge'; // specifying it should only run on the server
 
 export async function downloadFromAwsS3(fileKey: string) {
     try {
