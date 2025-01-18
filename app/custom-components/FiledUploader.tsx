@@ -32,10 +32,6 @@ const FiledUploader = ({ className }: { className?: string }) => {
             status: "Preparing Chat room",
             icon: <PaintbrushVertical size={28} color='#a855f7' />
         },
-        {
-            status: "Redirecting in a bit",
-            icon: <PaintbrushVertical size={28} color='#a855f7' />
-        }
     ]
     const DELAY = 3000;
 
@@ -109,7 +105,7 @@ const FiledUploader = ({ className }: { className?: string }) => {
                 <div className="flex flex-col gap-3 items-center w-full">
                     {
                         isPending || uploading ? (<div className={`flex flex-col gap-3 py-8 transition animate-in delay-[${DELAY}] items-center`}>
-                            <span className='bg-gray-300 rounded-lg p-2 justify-center items-center flex w-max text-purple-500'>{loaderArr[index].icon}</span>
+                            <span className='rounded-lg p-2 justify-center items-center flex w-max text-purple-500'>{loaderArr[index].icon}</span>
                             <span className='text-gray-400 capitalize text-nowrap text-[14px]'>{loaderArr[index].status}</span>
                             <span>{ }</span>
                         </div>) : (

@@ -6,11 +6,15 @@ export interface ToggleContextProps {
     setIsOpen: (isOpen: boolean) => void;
 }
 
-export const ToggleContext = createContext<ToggleContextProps | {}>({})
+// Create context with a proper default value that matches ToggleContextProps
+export const ToggleContext = createContext<ToggleContextProps>({
+    isOpen: false,
+    setIsOpen: () => {} // no-op function as default
+});
 
-
-const ToggleContextProvider = ({ children }: {children: React.ReactNode}) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+const ToggleContextProvider = ({ children }: { children: React.ReactNode }) => {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    
     return (
         <ToggleContext.Provider value={{ isOpen, setIsOpen }}>
             {children}

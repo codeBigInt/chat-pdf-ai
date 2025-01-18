@@ -1,6 +1,7 @@
-import { getPineconeClient } from "./pincone"
+"use server";
 import { convertToAscii } from "./utils";
 import { getEmbeddingFromText } from "./embeddings";
+import { getPineconeClient } from "./server/pdf/picone";
 
 const getMatchingEmbeddings = async (embedding: number[], fileKey: string) => {
     try {

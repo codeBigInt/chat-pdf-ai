@@ -1,3 +1,4 @@
+"use server";
 import { CohereEmbeddings } from "@langchain/cohere";
 
 const cohere = new CohereEmbeddings({

@@ -8,21 +8,20 @@ export async function POST(request: Request) {
     try {
         const { userId, tx_ref, planType } = await request.json()
         const userSubscription = await db.select().from(subscriptions).where(eq(subscriptions.userId, userId))
-        if (userSubscription[0].plan === planType) {
-            return NextResponse.json({ message: "Already subscribed to this plan", status: 400 })
-        }
 
-        if (tx_ref != undefined && planType !== undefined) {
-            await db.update(subscriptions).set({
-                subscribed: true,
-                plan: planType,
-                limit: planType === "premium" ? 50 : planType === "pro" ? 100 : 3
-            }).where(eq(subscriptions.userId, userId))
-            return NextResponse.json({ message: "Updated subscription plan", status: 200 })
+        if (userSubscription[0]) {
+            if (tx_ref != undefined && planType !== undefined && userSubscription[0] !== planType) {
+                await db.update(subscriptions).set({
+                    subscribed: true,
+                    plan: planType,
+                    limit: planType === "premium" ? 50 : planType === "pro" ? 100 : 3
+                }).where(eq(subscriptions.userId, userId))
+                return NextResponse.json({ message: "Updated subscription plan", status: 200 })
+            }
         }
-
         await db.insert(subscriptions).values({ userId: userId })
         return NextResponse.json({ message: "Free plan subscribed", status: 200 })
+
     } catch (error) {
         console.error(error)
         return NextResponse.json({ status: 500 })

@@ -1,7 +1,10 @@
-// import { GetObjectCommand, S3 } from "@aws-sdk/client-s3"
+"use server";
+import { GetObjectCommand, S3 } from "@aws-sdk/client-s3"
 // import fs from "fs"
 // import path from "path"
-// import { awsConfig } from "./s3"
+import { awsConfig } from "./s3"
+
+
 
 
 // export async function downloadFromAwsS3(fileKey: string) {
@@ -41,9 +44,9 @@
 
 
 
-// lib/s3-server.ts
-import { GetObjectCommand, S3 } from "@aws-sdk/client-s3";
-import { awsConfig } from "./s3";
+// // lib/s3-server.ts
+// import { GetObjectCommand, S3 } from "@aws-sdk/client-s3";
+// import { awsConfig } from "./s3";
 
 export async function downloadFromAwsS3(fileKey: string): Promise<Buffer | null> {
     try {

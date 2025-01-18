@@ -9,7 +9,7 @@ const PricingPage = async () => {
         <div className="min-h-screen bg-black text-white">
             <Header />
             <Pricing />
-            <div className='w-full flex justify-center'>
+            <div className='w-full flex justify-center pb-10'>
                 <Link href={"/dashboard"}>
                     <Button className="border bg-transparent w-max">
                         Back To Dashboard

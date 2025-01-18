@@ -15,7 +15,7 @@ export default function HowItWorks() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Upload your document</h3>
-                  <p className="text-gray-400">Drag and drop your PDF or click to upload. We'll process it instantly.</p>
+                  <p className="text-gray-400">Drag and drop your PDF or click to upload. We&apos;ll process it instantly.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">

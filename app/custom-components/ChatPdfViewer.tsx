@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, LoaderPinwheel } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react'

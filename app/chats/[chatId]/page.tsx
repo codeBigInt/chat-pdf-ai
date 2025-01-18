@@ -1,14 +1,13 @@
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 import { db } from "@/lib/db"
-import { chats, DrizzleChats } from "@/lib/db/schema"
+import { chats } from "@/lib/db/schema"
 import { eq } from "drizzle-orm"
 import ChatInterface from "@/app/custom-components/ChatInterface"
 
-interface Props {
-    params: { chatId: string }
-}
-const ChatRoom = async ({ params: { chatId } }: Props) => {
+
+const ChatRoom = async ({ params }: {params: Promise<{chatId: string}>}) => {
+    const chatId = (await (params)).chatId
     const { userId } = await auth()
     if (!userId) {
         return redirect("/")
@@ -20,7 +19,18 @@ const ChatRoom = async ({ params: { chatId } }: Props) => {
     }
 
     const currentChat = _chats.find((chat) => chat.id === parseInt(chatId))
-    return <ChatInterface _chats={_chats} chatId={chatId} currentChat={currentChat as DrizzleChats} />
+    
+    if (!currentChat) {
+        return redirect("/")
+    }
+
+    return (
+        <ChatInterface 
+            _chats={_chats} 
+            chatId={chatId} 
+            currentChat={currentChat} 
+        />
+    )
 }
 
 export default ChatRoom
